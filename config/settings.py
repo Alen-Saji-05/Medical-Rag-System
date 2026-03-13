@@ -48,9 +48,37 @@ CHROMA_COLLECTION = "medical_knowledge"
 CHROMA_PERSIST_DIR = str(EMBEDDINGS_DIR / "chroma_db")
 
 # ─── LLM generation ───────────────────────────────────────────────────────────
-LLM_MODEL = "gpt-4o"
+# Groq inference - fast, free tier at console.groq.com
+# Options: "llama-3.3-70b-versatile" (best), "llama-3.1-8b-instant" (fastest)
+LLM_MODEL = "llama-3.3-70b-versatile"
 LLM_TEMPERATURE = 0.1              # Low temp → factual, consistent answers
 LLM_MAX_TOKENS = 1024
+LLM_CONTEXT_WINDOW = 8000          # Max tokens for retrieved context in prompt
+
+# ─── Hallucination guard ──────────────────────────────────────────────────────
+# NLI model checks whether generated claims are entailed by retrieved context.
+# Sentences scoring below this threshold are flagged as potentially unsupported.
+NLI_MODEL = "cross-encoder/nli-deberta-v3-small"
+NLI_ENTAILMENT_THRESHOLD = 0.5    # Below this → flag claim as unsupported
+
+# ─── Safety classifier ────────────────────────────────────────────────────────
+# Patterns that trigger immediate safety responses before any RAG processing
+EMERGENCY_PATTERNS = [
+    "chest pain", "can't breathe", "cannot breathe", "heart attack",
+    "stroke", "unconscious", "not breathing", "overdose", "suicidal",
+    "suicide", "severe bleeding", "allergic reaction", "anaphylaxis",
+]
+HARMFUL_PATTERNS = [
+    "how to overdose", "lethal dose", "how to kill", "self harm",
+    "how much to take to die",
+]
+OUT_OF_SCOPE_PATTERNS = [
+    "stock price", "weather", "sports", "movie", "recipe",
+    "legal advice", "financial advice",
+]
+
+# ─── Conversation ─────────────────────────────────────────────────────────────
+MAX_HISTORY_TURNS = 6              # How many prior turns to include in context
 
 # ─── Safety ───────────────────────────────────────────────────────────────────
 DISCLAIMER = (
