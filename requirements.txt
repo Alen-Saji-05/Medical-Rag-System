@@ -1,0 +1,44 @@
+# Core RAG & LLM
+langchain==0.2.16
+langchain-community==0.2.16
+langchain-openai==0.1.23
+openai==1.45.0
+
+# Biomedical embeddings
+sentence-transformers==3.0.1
+transformers==4.44.2
+torch==2.4.0
+
+# Vector database
+chromadb==0.5.5
+
+# Hybrid search (BM25)
+rank-bm25==0.2.2
+
+# Reranker
+cross-encoder @ git+https://github.com/UKPLab/sentence-transformers.git
+
+# Document parsing
+PyMuPDF==1.24.10
+beautifulsoup4==4.12.3
+requests==2.32.3
+lxml==5.3.0
+
+# Data processing
+pandas==2.2.2
+numpy==1.26.4
+tqdm==4.66.5
+
+# Evaluation (RAGAS)
+ragas==0.1.19
+datasets==2.21.0
+
+# API & serving
+fastapi==0.114.0
+uvicorn==0.30.6
+pydantic==2.8.2
+
+# Utilities
+python-dotenv==1.0.1
+loguru==0.7.2
+tenacity==8.5.0
